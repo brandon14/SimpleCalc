@@ -1,13 +1,4 @@
-/** Name: Brandon Clothier
- *  Homework: Homework #8
- *  Date: 11/26/2013
- *  Description: This program will render and display a fully functional calculator
- *               based on the layout of the Windows 7 standard calculator. It uses
- *               the BigDecimal class to do the calculations and JFrames and the Swing
- *               library to render the UI.
- *  
- */
-package com.brandon14.Homework8.SimpleCalc;
+package com.brandon14.SimpleCalc;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -33,12 +24,9 @@ import javax.swing.UIManager;
  * @author brandon
  *
  */
-public class SimpleCalcFrame extends JFrame implements ActionListener
-{
-	//Auto-generated serialVersionUID.
+public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 610599451754598404L;
 	
-	//JFrame to display the UI in.
 	private JFrame calculatorWindow;
 	
 	/**
@@ -73,107 +61,65 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * GridLayouts on each panel to determine the number of rows of buttons and the number of
 	 * buttons in each row for each JPanel.
 	 */
-	//2x5 GridLayout to house 10 buttons.
 	private JPanel rowOneButtons = new JPanel(new GridLayout(2,5));
-	//2x5 GridLayout to house 10 buttons.
 	private JPanel rowTwoButtons = new JPanel(new GridLayout(2,5));
-	//1x5 GridLayout to house 5 subrow JPanel's.
 	private JPanel rowThreeButtons = new JPanel(new GridLayout(1,5));
-	//2x1 layout to house 2 buttons on top of each other.
 	private JPanel rowThreeOneButtons = new JPanel(new GridLayout(2,1));
-	//2x1 layout to house 2 buttons on top of each other.
 	private JPanel rowThreeTwoButtons = new JPanel(new GridLayout(2,1));
-	//2x1 layout to house 2 buttons on top of each other.
 	private JPanel rowThreeThreeButtons = new JPanel(new GridLayout(2,1));
-	//2x1 layout to house 2 buttons on top of each other.
 	private JPanel rowThreeFourButtons = new JPanel(new GridLayout(2,1));
-	//1x1 layout to house 1 double height equals button.
 	private JPanel rowThreeFiveButtons = new JPanel(new GridLayout(1,1));
 	
 	/**
 	 * JButton's that will go on rowOne JPanel.
 	 */
-	//Memory clear button.
 	private JButton mcButton;
-	//Memory recall button.
 	private JButton mrButton;
-	//Memory store button.
 	private JButton msButton;
-	//Memory add button.
 	private JButton mPlusButton;
-	//Memory subtract button.
 	private JButton mMinusButton;
-	//Backspace button.
 	private JButton deleteButton;
-	//Clear entry button.
 	private JButton ceButton;
-	//Clear all button.
 	private JButton cButton;
-	//Positive negative button.
 	private JButton plusMinusButton;
-	//Square root button.
 	private JButton sqrtButton;
 	
 	/**
 	 * JButton's that will go on rowTwo JPanel.
 	 */
-	//7 button.
 	private JButton sevenButton;
-	//8 button.
 	private JButton eightButton;
-	//9 button.
 	private JButton nineButton;
-	//Divide button.
 	private JButton divideButton;
-	//Percentage button.
 	private JButton percentButton;
-	//4 button.
 	private JButton fourButton;
-	//5 button.
 	private JButton fiveButton;
-	//6 button.
 	private JButton sixButton;
-	//Multiplication button.
 	private JButton multiplyButton;
-	//Reciprocal button.
 	private JButton onexButton;
 	
 	/**
 	 * JButton's that will go on rowThree individual
 	 * JPanel's
 	 */
-	//1 button.
 	private JButton oneButton;
-	//2 button.
 	private JButton twoButton;
-	//3 button.
 	private JButton threeButton;
-	//0 button.
 	private JButton zeroButton;
-	//Subtraction button.
 	private JButton minusButton;
-	//Equals button.
 	private JButton equalsButton;
-	//Decimal point button.
 	private JButton decimalButton;
-	//Addition button.
 	private JButton plusButton;
-	//Exponent button.
 	private JButton powerButton;
 	
 	/**
 	 * We need some additional variables to handle the calculations and
 	 * set flags to help maintain the display and so on.
 	 */
-	//boolean to notify program if it is the first character being entered to the display textfield.
 	private boolean firstEntry;
-	//byte to store the operation to be performed in the event of repeated equals button clicks.
 	private byte repeatedLastOp;
-	//BigDecimal to store the last number entered in the event of repeated equals button clicks.
 	private BigDecimal repeatedLastNum;
-	//boolean flag to notify the program that an equals event has taken place.
 	private boolean equals;
-	//byte variable to store what type of operation is to take place.
 	/**
 	 * 0 - no operator
 	 * 1 - addition
@@ -184,11 +130,8 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * 6 - equals (for repeated equals)
 	 */
 	private byte lastOperator;
-	//BigDecimal to store the last number entered into.
 	private BigDecimal lastNumber;
-	//BigDecimal to store the result of the operation into.
 	private BigDecimal result;
-	//BigDecimal to store the memory number in for the memory functions.
 	private BigDecimal memory;
 	
 	/**
@@ -203,39 +146,24 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * 
 	 * @param titleOfCalculator title of the calculator JFrame.
 	 */
-	public SimpleCalcFrame(String titleOfCalculator)
-	{
-		//Initialize the JFrame using titleOfCalculator as the title.
+	public SimpleCalcFrame(String titleOfCalculator) {
 		calculatorWindow = new JFrame(titleOfCalculator);
-		//Set the height and width to the defined constants.
 		calculatorWindow.setSize(WIDTH_OF_WINDOW, HEIGHT_OF_WINDOW);
-		//Make it dispose the JFrame on close.
 		calculatorWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//Make it un-resizeable.
 		calculatorWindow.setResizable(false);
-		//Create a 4x1 GridLayout to add the display area plus the 3 rows of buttons.
 		calculatorWindow.setLayout(new GridLayout(4,1));
-		//Attempt to set the design to the Nimbus look and feel.
 		setDesign();
 		
-		//Create a BoxLayout on the display JPanel to add the text field and scrollbar.
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
-		//Create a BoundedRangeModel from the displayArea to set the model on the scroll bar.
 		BoundedRangeModel resultBRM = displayArea.getHorizontalVisibility();
 		displayScrollBar.setModel(resultBRM);
-		//Add the textfield and scroll bar to the display panel.
 		displayPanel.add(displayArea);
 		displayPanel.add(displayScrollBar);
-		//Set the textfield to autoscroll.
 		displayArea.setAutoscrolls(true);
-		//Set the textfield to be un-editiable.
 		displayArea.setEditable(false);
-		//Set the textfield font to the sansSerifLarge font we created.
 		displayArea.setFont(sansSerifLarge);
-		//Align the textfield to the right.
 		displayArea.setHorizontalAlignment(JTextField.RIGHT);
 		
-		//Initialize the JButtons that go on rowOne JPanel.
 		mcButton = new JButton("MC");
 		mrButton = new JButton("MR");
 		msButton = new JButton("MS");
@@ -282,7 +210,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		sqrtButton.setToolTipText("Square root button. This button will take the square root of the current"
 								+ " number on screen.");
 		
-		//Add each button to the rowOneButtons JPanel.
 		rowOneButtons.add(mcButton);
 		rowOneButtons.add(mrButton);
 		rowOneButtons.add(msButton);
@@ -294,7 +221,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		rowOneButtons.add(plusMinusButton);
 		rowOneButtons.add(sqrtButton);
 		
-		//Initialize the JButtons that go on rowTwo JPanel.
 		sevenButton = new JButton("7");
 		eightButton = new JButton("8");
 		nineButton = new JButton("9");
@@ -332,7 +258,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		onexButton.setToolTipText("Reciprocal button. Will display the reciprocal"
 								+ " of the current number displayed.");
 		
-		//Add each button to the rowTwoButtons JPanel
 		rowTwoButtons.add(sevenButton);
 		rowTwoButtons.add(eightButton);
 		rowTwoButtons.add(nineButton);
@@ -344,7 +269,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		rowTwoButtons.add(multiplyButton);
 		rowTwoButtons.add(onexButton);
 		
-		//Initialize the JButtons that go on rowThree JPanel.
 		oneButton = new JButton("1");
 		twoButton = new JButton("2");
 		threeButton = new JButton("3");
@@ -379,56 +303,42 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		powerButton.setToolTipText("Power button. Will raise the current number to "
 								+ "the power of the number typed in afterwards.");
 		
-		//Add one and exponent button to the rowThreeOne panel.
 		rowThreeOneButtons.add(oneButton);
 		rowThreeOneButtons.add(powerButton);
 		
-		//Add two and zero buttons to the rowThreeTwo panel.
 		rowThreeTwoButtons.add(twoButton);
 		rowThreeTwoButtons.add(zeroButton);
 		
-		//Add 3 and decimal button to the rowThreeThree panel.
 		rowThreeThreeButtons.add(threeButton);
 		rowThreeThreeButtons.add(decimalButton);
 		
-		//Add minus and plus button to the rowThreeFour panel.
 		rowThreeFourButtons.add(minusButton);
 		rowThreeFourButtons.add(plusButton);
 		
-		//Add the equals button to the rowThreeFive panel.
 		rowThreeFiveButtons.add(equalsButton);
 		equalsButton.setFont(sansSerifRegular);
 		
-		//Add all row three sub panels to the rowThreeButtons panel.
 		rowThreeButtons.add(rowThreeOneButtons);
 		rowThreeButtons.add(rowThreeTwoButtons);
 		rowThreeButtons.add(rowThreeThreeButtons);
 		rowThreeButtons.add(rowThreeFourButtons);
 		rowThreeButtons.add(rowThreeFiveButtons);
 		
-		//Add the display panel, row one two and three panels to the JFrame.
 		calculatorWindow.add(displayPanel);
 		calculatorWindow.add(rowOneButtons);
 		calculatorWindow.add(rowTwoButtons);
 		calculatorWindow.add(rowThreeButtons);
 		
-		//Set the display string to 0.
 		calculatorDisplay = "0";
 		
-		//Set the firstEntry boolean to true.
 		firstEntry = true;
-		//Set equals flag boolean to false.
 		equals = false;
-		//Set the lastOperator to 0 for no operator.
 		lastOperator = 0;
-		//Set the lastNumber, result and memory to zero.
 		lastNumber = BigDecimal.ZERO;
 		result = BigDecimal.ZERO;
 		memory = BigDecimal.ZERO;
 		
-		//Set display area text to the display string.
 		displayArea.setText(calculatorDisplay);
-		//Make calculator JFrame visible.
 		calculatorWindow.setVisible(true);
 	}
 	
@@ -436,16 +346,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * Method to attempt to set the look and feel of the Swing Objects to the
 	 * Nimbus look and feel included in the Java 1.7 JDK.
 	 */
-	public void setDesign()
-	{
-		//Use a try catch block to catch any exception thrown.
-		try 
-		{
-			//call the setLookAndFeel() method from the UIManager class.
+	public void setDesign() {
+		try {
 			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		} catch(Exception e)
-		{  
-			//Print out stack trace error message if we encounter an exception.
+		} catch(Exception e) {  
 			e.printStackTrace();
 		}
 	}
@@ -456,20 +360,14 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * result and lastNumber variables to zero, set the display string to display 0
 	 * and set the equals flag to false and the firstEntry variable to true.
 	 */
-	private void clear()
-	{
-		//Set last operator to 0.
+	private void clear() {
 		lastOperator = 0;
-		//Set equals flag to false.
 		equals = false;
-		//Set firstEntry flag to true.
 		firstEntry = true;
 		
-		//Set lastNumber and result to zero.
 		lastNumber = BigDecimal.ZERO;
 		result = BigDecimal.ZERO;
 		
-		//Set display string to zero and update the display area with that string.
 		calculatorDisplay = "0";
 		displayArea.setText(calculatorDisplay);
 	}
@@ -477,14 +375,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	/**
 	 * This method will only clear out the number displayed currently on the screen.
 	 */
-	private void clearEntry()
-	{
-		//Set the display string to zero.
+	private void clearEntry() {
 		calculatorDisplay = "0";
-		//Update the display area textfield to the display string.
 		displayArea.setText(calculatorDisplay);
 		
-		//Set firstEntry flag to true.
 		firstEntry = true;
 	}
 	
@@ -494,26 +388,21 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * 
 	 * @param character The character desired to add to the display string.
 	 */
-	public void addToDisplay(String character)
-	{
+	public void addToDisplay(String character) {
 		/**
 		 * If equals or firstEntry is true, then we need to only add the character passed to
 		 * this method to the display String as there will already be a zero there. So we ignore the
 		 * zero and just set the display string to the character passed to the method and set equals to false.
 		 */
-		if (equals || firstEntry)
-		{
+		if (equals || firstEntry) {
 			calculatorDisplay = character;
 			equals = false;
 		}
-		//If neither is true, then we just add the character passed to the method to the display string.
 		else
 			calculatorDisplay += character;
 		
-		//Update the display textfield with the display string.
 		displayArea.setText(calculatorDisplay);
 		
-		//Set first entry flag to false.
 		firstEntry = false;
 	}
 	
@@ -525,37 +414,25 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * @param operator byte number corresponding to the desired operation.
 	 * @throws NumberFormatException
 	 */
-	private void calculateOperator(byte operator) throws NumberFormatException
-	{
-		//Set the display string to the text showed in the display textfield.
+	private void calculateOperator(byte operator) throws NumberFormatException {
 		calculatorDisplay = displayArea.getText();
-		//Create a BigDecimal variable to store the current number in.
 		BigDecimal currentNumber;
 		
-		//If firstEntry flag is true, show an error dialog saying you must input a number before the operator.
-		if (firstEntry)
-		{
+		if (firstEntry) {
 			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 												"Error!", JOptionPane.ERROR_MESSAGE);
-			//Clear the screen out
 			clear();
 			
-			//Return so that no operation takes place.
 			return;
 		}
 		/**
 		 * Else we must try to set the currentNumber variable, and catch NumberFormatException
 		 * to check for malformed expression (i.e. multiple decimal points, odd characters, etc.)
 		 */
-		else
-		{
-			try
-			{
-				//Try to set the currentNumber to the display string.
+		else {
+			try {
 				currentNumber = new BigDecimal(calculatorDisplay);
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, show a error dialog box and clear the screen out and return.
+			} catch (NumberFormatException exception) {
 				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
 				clear();
@@ -569,23 +446,17 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		 * in queue, so we set the result equal to the the BigDecimal returned from the
 		 * calculateLastOperator() method. And set the lastNumber variable to the result.
 		 */
-		if (lastOperator != 0 && lastOperator != 6)
-		{
+		if (lastOperator != 0 && lastOperator != 6){
 			result = calculateLastOperator();
 			lastNumber = result;
 		}
-		//If there is no pending operator, set the lastNumber to the currentNumber.
 		else
 			lastNumber = currentNumber;
 		
-		//Set the calculator display string to the lastNumber by calling toEngineeringString()
 		calculatorDisplay = lastNumber.toEngineeringString();
-		//Update the display textfield using the display string.
 		displayArea.setText(calculatorDisplay);
 		
-		//Set the lastOperator variable to the operator passed to it.
 		lastOperator = operator;
-		//Blank out the calculator display so you can enter a new number.
 		calculatorDisplay = "";
 	}
 	
@@ -596,37 +467,25 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 	 * @return the BigDecimal value of the operation performed.
 	 * @throws NumberFormatException
 	 */
-	private BigDecimal calculateLastOperator() throws NumberFormatException
-	{
-		//Pull in the displayed text and save it into the display string.
+	private BigDecimal calculateLastOperator() throws NumberFormatException {
 		calculatorDisplay = displayArea.getText();
-		//Create a BigDecimal to store the current number in.
 		BigDecimal currentNumber;
 		
-		//If firstEntry flag is true, show an error dialog saying you must input a number before the operator.
-		if (firstEntry)
-		{
+		if (firstEntry) {
 			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 												"Error!", JOptionPane.ERROR_MESSAGE);
-			//Clear the screen out.
 			clear();
 			
-			//Return 0.
 			return BigDecimal.ZERO;
 		}
 		/**
 		 * Else we must try to set the currentNumber variable, and catch NumberFormatException
 		 * to check for malformed expression (i.e. multiple decimal points, odd characters, etc.)
 		 */
-		else
-		{
-			try
-			{
-				//Try to set the currentNumber to the display string.
+		else {
+			try {
 				currentNumber = new BigDecimal(calculatorDisplay);
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, show a error dialog box and clear the screen out and return 0.
+			} catch (NumberFormatException exception) {
 				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
 				clear();
@@ -635,7 +494,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			}
 		}
 		
-		//If lastOperator equals 0 (no operation) return the currentNumber.
 		if (lastOperator == 0)
 			return currentNumber;
 		
@@ -643,19 +501,11 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		 * If lastOperator equals 6, we are dealing with the repeated equals, so we must check what the
 		 * repeatedLastOp variable is.
 		 */
-		if (lastOperator == 6)
-		{
-			//Power function.
-			if (repeatedLastOp == 5)
-			{
-				//Use try catch to handle any infinite or NaN possibilities.
-				try
-				{
-					//Set result equal to the currentNumber to the power of the repeatedLastNum value.
+		if (lastOperator == 6){
+			if (repeatedLastOp == 5) {
+				try {
 					result = new BigDecimal(Math.pow(currentNumber.doubleValue(), repeatedLastNum.doubleValue()));
-				} catch (NumberFormatException exception)
-				{
-					//If we catch an exception, show a error dialog, clear out the display and set result to zero.
+				} catch (NumberFormatException exception) {
 					System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
@@ -664,54 +514,34 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 					result = BigDecimal.ZERO;
 				}
 			}
-			//Division function.
-			if (repeatedLastOp == 4)
-			{
-				//Check to make sure the currentNumber isn't zero.
-				if (!currentNumber.equals(BigDecimal.ZERO))
-				{
-					//use a try/catch to check for non terminating decimal results.
-					try
-					{
+			if (repeatedLastOp == 4) {
+				if (!currentNumber.equals(BigDecimal.ZERO)) {
+					try {
 						result = currentNumber.divide(repeatedLastNum);
-					} catch (ArithmeticException exception)
-					{
-						//If we catch an ArithmeticException, we must round the result to 10 decimal places.
+					} catch (ArithmeticException exception) {
 						System.out.println("Non-terminating decimal answer. Rounding to 10 decimal places!");
 					
-						//Round to 10 decimal places.
-						result = currentNumber.divide(repeatedLastNum, 10, RoundingMode.CEILING);
-					} catch (NumberFormatException exception)
-					{
-						//Catch NumberFormatException for infinite or NaN exceptions.
+												result = currentNumber.divide(repeatedLastNum, 10, RoundingMode.CEILING);
+					} catch (NumberFormatException exception) {
 						System.out.println("Number format was invalid, INFINITE or NaN!");
 						JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 								"Error!", JOptionPane.ERROR_MESSAGE);
-						//Clear and set result to zero.
 						clear();
 						
 						result = BigDecimal.ZERO;
 					}
 				}
-				//Else we have a zero as a divisor, so display an error and then clear and return zero.
-				else
-				{
+				else {
 					JOptionPane.showMessageDialog(null, "Error: Divide by zero!", "Error!", JOptionPane.ERROR_MESSAGE);
 					clear();
 					
 					return BigDecimal.ZERO;
 				}
 			}
-			//Multiplication function.
-			if (repeatedLastOp == 3)
-			{
-				//Use try catch for infinite or NaN results.
-				try
-				{
+			if (repeatedLastOp == 3) {
+				try {
 					result = currentNumber.multiply(repeatedLastNum);
-				} catch (NumberFormatException exception)
-				{
-					//If we catch an exception, display a error dialog and clear and set result to zero.
+				} catch (NumberFormatException exception) {
 					System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
@@ -720,16 +550,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 					result = BigDecimal.ZERO;
 				}
 			}
-			//Subtraction function.
-			if (repeatedLastOp == 2)
-			{
-				//Use try catch for infinite or NaN results.
-				try
-				{
+			if (repeatedLastOp == 2) {
+				try {
 					result = currentNumber.subtract(repeatedLastNum);
-				} catch (NumberFormatException exception)
-				{
-					//If we catch an exception, display a error dialog and clear and set result to zero.
+				} catch (NumberFormatException exception) {
 					System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
@@ -738,16 +562,11 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 					result = BigDecimal.ZERO;
 				}
 			}
-			//Addition function.
-			if (repeatedLastOp == 1)
-			{
-				//Use try catch for infinite or NaN results.
-				try
-				{
+			if (repeatedLastOp == 1) {
+				try {
 					result = currentNumber.add(repeatedLastNum);
 				} catch (NumberFormatException exception)
 				{
-					//If we catch an exception, display a error dialog and clear and set result to zero.
 					System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
@@ -760,17 +579,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		/**
 		 * End of the repeatedEquals functions. The next ones are used for normal calculations.
 		 */
-		
-		//Power function.
-		if (lastOperator == 5)
-		{
-			//Use try catch to handle infinite or NaN results.
-			try
-			{
+		if (lastOperator == 5) {
+			try {
 				result = new BigDecimal(Math.pow(lastNumber.doubleValue(), currentNumber.doubleValue()));
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, display error dialog, clear and set result to zero.
+			} catch (NumberFormatException exception) {
 				System.out.println("Number format was invalid, INFINITE or NaN!");
 				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
@@ -779,25 +591,15 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				result = BigDecimal.ZERO;
 			}
 		}
-		//Division function.
-		if (lastOperator == 4)
-		{
-			//Make sure the divisor isn't zero.
-			if (!currentNumber.equals(BigDecimal.ZERO))
-			{
-				//Use try catch to handle infinite, NaN, or repeating decimal results.
-				try
-				{
+		if (lastOperator == 4) {
+			if (!currentNumber.equals(BigDecimal.ZERO)) {
+				try {
 					result = lastNumber.divide(currentNumber);
-				} catch (ArithmeticException exception)
-				{
-					//If we catch an ArithmeticException, round to 10 decimal places.
+				} catch (ArithmeticException exception) {
 					System.out.println("Non-terminating decimal answer. Rounding to 10 decimal places!");
 				
 					result = lastNumber.divide(currentNumber, 10, RoundingMode.CEILING);
-				} catch (NumberFormatException exception)
-				{
-					//If we catch a NumberFormatException, display an error dialog, clear and set result to zero.
+				} catch (NumberFormatException exception) {
 					System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
@@ -806,25 +608,17 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 					result = BigDecimal.ZERO;
 				}
 			}
-			//Else we have zero as a divisor, show error dialog, clear and return zero.
-			else
-			{
+			else {
 				JOptionPane.showMessageDialog(null, "Error: Divide by zero!", "Error!", JOptionPane.ERROR_MESSAGE);
 				clear();
 				
 				return BigDecimal.ZERO;
 			}
 		}
-		//Multiplication function.
-		if (lastOperator == 3)
-		{
-			//Use try catch to handle infinite or NaN results.
-			try
-			{
+		if (lastOperator == 3) {
+			try {
 				result = lastNumber.multiply(currentNumber);
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, display an error dialog, clear and set result equal to zero.
+			} catch (NumberFormatException exception) {
 				System.out.println("Number format was invalid, INFINITE or NaN!");
 				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
@@ -833,16 +627,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				result = BigDecimal.ZERO;
 			}
 		}
-		//Subtraction function.
-		if (lastOperator == 2)
-		{
-			//Use try catch to handle infinite or NaN results.
-			try
-			{
+		if (lastOperator == 2) {
+			try {
 				result = lastNumber.subtract(currentNumber);
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, display an error dialog, clear and set result to zero.
+			} catch (NumberFormatException exception) {
 				System.out.println("Number format was invalid, INFINITE or NaN!");
 				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
@@ -851,16 +639,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				result = BigDecimal.ZERO;
 			}
 		}
-		//Addition function.
-		if (lastOperator == 1)
-		{
-			//Use try catch to handle infinite or NaN results.
-			try
-			{
+		if (lastOperator == 1) {
+			try {
 				result = lastNumber.add(currentNumber);
-			} catch (NumberFormatException exception)
-			{
-				//If we catch an exception, display an error dialog, clear and set result to zero.
+			} catch (NumberFormatException exception) {
 				System.out.println("Number format was invalid, INFINITE or NaN!");
 				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
@@ -870,7 +652,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			}
 		}
 		
-		//Set the lastNumber to the currentNumber.		
 		lastNumber = currentNumber;
 		
 		/**
@@ -884,7 +665,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			repeatedLastNum = currentNumber;
 			repeatedLastOp = lastOperator;
 		}
-		//Return the result BigDecimal.
 		return result;
 	}
 
@@ -901,7 +681,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		/**
 		 * ================= Input Button Functions =================
 		 */
-		//For each input button, we call the addToDisplay function passing the button character to it.
 		if (e.getSource() == zeroButton)
 			addToDisplay("0");
 		if (e.getSource() == oneButton)
@@ -928,32 +707,21 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		/**
 		 * ================= Positive/Negative Function =================
 		 */
-		if (e.getSource() == plusMinusButton)
-		{
-			//Pull in the current number displayed.
+		if (e.getSource() == plusMinusButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			//Check to see if firstEntry is true, if so display an error dialog and clear the entry and return.
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				clearEntry();
 				
 				return;
 			}
-			//Else we need to negate the current number displayed and redisplayed its negated value.
-			else
-			{
-				//Use try catch to handle infinite or NaN results.
-				try
-				{
-					//Multiply it by negative 1 to negate it.
+			else {
+				try {
 					calculatorDisplay = new BigDecimal(calculatorDisplay).multiply(BigDecimal.valueOf(-1)).toString();
-				} catch (NumberFormatException exception)
-				{
-					//If we catch an exception, display an error dialog, and then clear the entry and return.
-					System.out.println("Number format was invalid, INFINITE or NaN!");
+				} catch (NumberFormatException exception) {
+										System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -963,32 +731,26 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				}
 			}
 			
-			//Update the display textfield.
 			displayArea.setText(calculatorDisplay);
 		}
 		
 		/**
 		 * ================= Special Functions =================
 		 */
-		if (e.getSource() == sqrtButton)
-		{
+		if (e.getSource() == sqrtButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				clearEntry();
 				
 				return;
 			}
-			else
-			{
-				try
-				{
+			else {
+				try {
 					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1004,13 +766,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			if (lastNumber.compareTo(BigDecimal.ZERO) < 0)
 				JOptionPane.showMessageDialog(null, "Error: Cannot take the square root of a negative number", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
-			else
-			{
-				try
-				{
+			else {
+				try {
 					lastNumber = BigDecimal.valueOf(Math.sqrt(lastNumber.doubleValue()));
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					clear();
@@ -1024,25 +783,20 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			
 			equals = true;
 		}
-		if (e.getSource() == onexButton)
-		{
+		if (e.getSource() == onexButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				clearEntry();
 				
 				return;
 			}
-			else
-			{
-				try
-				{
+			else {
+				try {
 					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1055,26 +809,21 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				}
 			}
 			
-			if (!lastNumber.equals(BigDecimal.ZERO))
-			{
-				try
-				{
+			if (!lastNumber.equals(BigDecimal.ZERO)) {
+				try {
 					lastNumber = BigDecimal.ONE.divide(lastNumber);
-				} catch (ArithmeticException exception)
-				{
+				} catch (ArithmeticException exception) {
 					System.out.println("Non-terminating decimal answer. Rounding to 10 decimal places!");
 				
 					lastNumber = BigDecimal.ONE.divide(lastNumber, 10, RoundingMode.CEILING);
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 				
 					lastNumber = BigDecimal.ZERO;
 				}
 			}
-			else
-			{
+			else {
 				JOptionPane.showMessageDialog(null, "Error: Divide by zero!", "Error!", JOptionPane.ERROR_MESSAGE);
 				clear();
 			}
@@ -1084,25 +833,20 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			
 			equals = true;
 		}
-		if (e.getSource() == percentButton)
-		{
+		if (e.getSource() == percentButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				clearEntry();
 				
 				return;
 			}
-			else
-			{
-				try
-				{
+			else {
+				try {
 					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1115,11 +859,9 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				}
 			}
 			
-			try
-			{
+			try {
 				lastNumber = lastNumber.divide(BigDecimal.valueOf(100));
-			} catch (NumberFormatException exception)
-			{
+			} catch (NumberFormatException exception) {
 				JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
 						"Error!", JOptionPane.ERROR_MESSAGE);
 				clear();
@@ -1136,7 +878,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		/**
 		 * ================= Operational Functions =================
 		 */
-		//Call the calculateOperator() method passing the byte value corresponding to the desired operation.
 		if (e.getSource() == plusButton)
 			calculateOperator((byte)1);
 		if (e.getSource() == minusButton)
@@ -1151,21 +892,13 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		/**
 		 * ================= Equals Function =================
 		 */
-		if (e.getSource() == equalsButton)
-		{
-			/**
-			 * Set the result equal to the result from the calculateLastOperator() method so that we 
-			 * take into account the pending operations.
-			 */
+		if (e.getSource() == equalsButton) {
 			result = calculateLastOperator();
 			
-			//Set the display string to the result and update the display textfield.
 			calculatorDisplay = result.toEngineeringString();
 			displayArea.setText(calculatorDisplay);
 			
-			//Set equals flag to true.
 			equals = true;
-			//Set lastOperator to 6 in case of repeated equals pressing.
 			lastOperator = 6;
 		}
 		
@@ -1174,12 +907,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		 */
 		if (e.getSource() == mcButton)
 			memory = BigDecimal.ZERO;
-		if (e.getSource() == msButton)
-		{
+		if (e.getSource() == msButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				
@@ -1187,13 +918,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				
 				return;
 			}
-			else
-			{
-				try
-				{
+			else {
+				try {
 					memory = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1211,12 +939,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			
 			firstEntry = true;
 		}
-		if (e.getSource() == mPlusButton)
-		{
+		if (e.getSource() == mPlusButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				
@@ -1224,13 +950,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 				
 				return;
 			}
-			else
-			{
-				try
-				{
+			else {
+				try {
 					memory = memory.add(new BigDecimal(calculatorDisplay));
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1243,12 +966,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			
 			firstEntry = true;
 		}
-		if (e.getSource() == mMinusButton)
-		{
+		if (e.getSource() == mMinusButton) {
 			calculatorDisplay = displayArea.getText();
 			
-			if (firstEntry)
-			{
+			if (firstEntry) {
 				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
 													"Error!", JOptionPane.ERROR_MESSAGE);
 				
@@ -1258,11 +979,9 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				try
-				{
+				try {
 					memory = memory.subtract(new BigDecimal(calculatorDisplay));
-				} catch (NumberFormatException exception)
-				{
+				} catch (NumberFormatException exception) {
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
 							"Error!", JOptionPane.ERROR_MESSAGE);
 					
@@ -1275,12 +994,8 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 			
 			firstEntry = true;
 		}
-		//Memory recall button, set the display string to the value in stored in memory, then update display.
-		if (e.getSource() == mrButton)
-		{
-			//Set the display string to the BigDecimal stored in memory.
+		if (e.getSource() == mrButton) {
 			calculatorDisplay = memory.toString();
-			//Update the displayArea.
 			displayArea.setText(calculatorDisplay);
 		}
 		
@@ -1294,29 +1009,24 @@ public class SimpleCalcFrame extends JFrame implements ActionListener
 		 * 0, else we need to remove the last character from the display. At the end e update
 		 * display by using the displayArea.setText() method.
 		 */
-		if (e.getSource() == deleteButton)
-		{
-			//Check firstEntry boolean and the length of the display string.
-			if (!firstEntry && calculatorDisplay.length() > 0)
-			{
-				//If the length is one, just change it to display 0 and set firstEntry to true.
-				if (calculatorDisplay.length() == 1)
-				{
+		if (e.getSource() == deleteButton) {
+			if (!firstEntry && calculatorDisplay.length() > 0) {
+				if (calculatorDisplay.length() == 1) {
 					calculatorDisplay = "0";
 					firstEntry = true;
 				}
-				//Else remove the last character from the display string.
 				else
 					calculatorDisplay = calculatorDisplay.substring(0, calculatorDisplay.length()-1);
-				//Update the displayArea with the new string.
 				displayArea.setText(calculatorDisplay);
 			}
 		}
-		//Clear all button. Call the clear() method.
 		if (e.getSource() == cButton)
 			clear();
-		//Clear entry button, call the clearEntry() method.
 		if(e.getSource() == ceButton)
 			clearEntry();
+	}
+	
+	public static void main(String[] args) {
+		SimpleCalcFrame myCalc = new SimpleCalcFrame("bCalc");
 	}
 }
