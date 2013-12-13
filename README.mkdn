@@ -1,0 +1,4 @@
+SimpleCalc
+==========
+
+This is a simple calculator program using the Java Swing GUI library and the BigDecimal class.
