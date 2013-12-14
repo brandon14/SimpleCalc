@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.rmi.AccessException;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
@@ -660,8 +661,9 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * 
 	 * @param e ActionEvent sent to the method from the button.
 	 * @throws NumberFormatException 
+	 * @throws ArithmeticException
 	 */
-	public void actionPerformed(ActionEvent e) throws NumberFormatException
+	public void actionPerformed(ActionEvent e) throws NumberFormatException, ArithmeticException
 	{
 		/**
 		 * ================= Input Button Functions =================
