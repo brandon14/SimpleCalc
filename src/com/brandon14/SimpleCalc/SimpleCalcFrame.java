@@ -46,64 +46,64 @@ import javax.swing.UIManager;
 public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 610599451754598404L;
 	
-	private JFrame calculatorWindow;
+	private static JFrame calculatorWindow;
 	
-	private final int HEIGHT_OF_WINDOW = 325;
-	private final int WIDTH_OF_WINDOW = 300;
+	private static final int HEIGHT_OF_WINDOW = 325;
+	private static final int WIDTH_OF_WINDOW = 300;
 	
-	private Font sansSerifRegular = new Font("Sans Serif", Font.BOLD, 16);
-	private Font sansSerifLarge = new Font("Sans Serif", Font.PLAIN, 18);
+	private static Font sansSerifRegular = new Font("Sans Serif", Font.BOLD, 16);
+	private static Font sansSerifLarge = new Font("Sans Serif", Font.PLAIN, 18);
 	
-	private JTextField displayArea = new JTextField();
-	private JScrollBar displayScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
-	private JPanel displayPanel = new JPanel();
-	private String calculatorDisplay;
+	private static JTextField displayArea = new JTextField();
+	private static JScrollBar displayScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
+	private static JPanel displayPanel = new JPanel();
+	private static String calculatorDisplay;
 	
-	private JPanel rowOneButtons = new JPanel(new GridLayout(2,5));
-	private JPanel rowTwoButtons = new JPanel(new GridLayout(2,5));
-	private JPanel rowThreeButtons = new JPanel(new GridLayout(1,5));
-	private JPanel rowThreeOneButtons = new JPanel(new GridLayout(2,1));
-	private JPanel rowThreeTwoButtons = new JPanel(new GridLayout(2,1));
-	private JPanel rowThreeThreeButtons = new JPanel(new GridLayout(2,1));
-	private JPanel rowThreeFourButtons = new JPanel(new GridLayout(2,1));
-	private JPanel rowThreeFiveButtons = new JPanel(new GridLayout(1,1));
+	private static JPanel rowOneButtons = new JPanel(new GridLayout(2,5));
+	private static JPanel rowTwoButtons = new JPanel(new GridLayout(2,5));
+	private static JPanel rowThreeButtons = new JPanel(new GridLayout(1,5));
+	private static JPanel rowThreeOneButtons = new JPanel(new GridLayout(2,1));
+	private static JPanel rowThreeTwoButtons = new JPanel(new GridLayout(2,1));
+	private static JPanel rowThreeThreeButtons = new JPanel(new GridLayout(2,1));
+	private static JPanel rowThreeFourButtons = new JPanel(new GridLayout(2,1));
+	private static JPanel rowThreeFiveButtons = new JPanel(new GridLayout(1,1));
 	
-	private JButton mcButton;
-	private JButton mrButton;
-	private JButton msButton;
-	private JButton mPlusButton;
-	private JButton mMinusButton;
-	private JButton deleteButton;
-	private JButton ceButton;
-	private JButton cButton;
-	private JButton plusMinusButton;
-	private JButton sqrtButton;
+	private static JButton mcButton;
+	private static JButton mrButton;
+	private static JButton msButton;
+	private static JButton mPlusButton;
+	private static JButton mMinusButton;
+	private static JButton deleteButton;
+	private static JButton ceButton;
+	private static JButton cButton;
+	private static JButton plusMinusButton;
+	private static JButton sqrtButton;
 	
-	private JButton sevenButton;
-	private JButton eightButton;
-	private JButton nineButton;
-	private JButton divideButton;
-	private JButton percentButton;
-	private JButton fourButton;
-	private JButton fiveButton;
-	private JButton sixButton;
-	private JButton multiplyButton;
-	private JButton onexButton;
+	private static JButton sevenButton;
+	private static JButton eightButton;
+	private static JButton nineButton;
+	private static JButton divideButton;
+	private static JButton percentButton;
+	private static JButton fourButton;
+	private static JButton fiveButton;
+	private static JButton sixButton;
+	private static JButton multiplyButton;
+	private static JButton onexButton;
 	
-	private JButton oneButton;
-	private JButton twoButton;
-	private JButton threeButton;
-	private JButton zeroButton;
-	private JButton minusButton;
-	private JButton equalsButton;
-	private JButton decimalButton;
-	private JButton plusButton;
-	private JButton powerButton;
+	private static JButton oneButton;
+	private static JButton twoButton;
+	private static JButton threeButton;
+	private static JButton zeroButton;
+	private static JButton minusButton;
+	private static JButton equalsButton;
+	private static JButton decimalButton;
+	private static JButton plusButton;
+	private static JButton powerButton;
 	
-	private boolean firstEntry;
-	private byte repeatedLastOp;
-	private BigDecimal repeatedLastNum;
-	private boolean equals;
+	private static boolean firstEntry;
+	private static byte repeatedLastOp;
+	private static BigDecimal repeatedLastNum;
+	private static boolean equals;
 	
 	/**
 	 * 0 - no operator
@@ -114,10 +114,10 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * 5 - power
 	 * 6 - equals (for repeated equals)
 	 */
-	private byte lastOperator;
-	private BigDecimal lastNumber;
-	private BigDecimal result;
-	private BigDecimal memory;
+	private static byte lastOperator;
+	private static BigDecimal lastNumber;
+	private static BigDecimal result;
+	private static BigDecimal memory;
 	
 	/**
 	 * The constructor for the calculator program will initialize the JFrame using the
@@ -345,7 +345,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * result and lastNumber variables to zero, set the display string to display 0
 	 * and set the equals flag to false and the firstEntry variable to true.
 	 */
-	private void clear() {
+	private static void clear() {
 		lastOperator = 0;
 		equals = false;
 		firstEntry = true;
@@ -360,7 +360,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	/**
 	 * This method will only clear out the number displayed currently on the screen.
 	 */
-	private void clearEntry() {
+	private static void clearEntry() {
 		calculatorDisplay = "0";
 		displayArea.setText(calculatorDisplay);
 		
@@ -392,6 +392,302 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	}
 	
 	/**
+	 * This method will negate the number showing on the display.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private static void calculateNegation() throws NumberFormatException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				calculatorDisplay = new BigDecimal(calculatorDisplay).multiply(BigDecimal.valueOf(-1)).toEngineeringString();
+			} catch (NumberFormatException exception) {
+									System.out.println("Number format was invalid, INFINITE or NaN!");
+				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				clearEntry();
+				
+				return;
+			}
+		}
+		
+		displayArea.setText(calculatorDisplay);
+	}
+	
+	/**
+	 * This method will evaluate the squareRoot of the currently displaying number given
+	 * that it is not negative.
+	 * 
+	 * @throws NumberFormatException
+	 * @throws ArithmeticException
+	 */
+	private static void calculateSquareRoot() throws NumberFormatException, ArithmeticException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				lastNumber = new BigDecimal(calculatorDisplay);
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				calculatorDisplay = "0";
+				displayArea.setText(calculatorDisplay);
+				
+				firstEntry = true;
+				
+				return;
+			}
+		}
+		
+		if (lastNumber.compareTo(BigDecimal.ZERO) < 0)
+			JOptionPane.showMessageDialog(null, "Error: Cannot take the square root of a negative number", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+		else {
+			try {
+				lastNumber = BigDecimal.valueOf(Math.sqrt(lastNumber.doubleValue()));
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				clear();
+				
+				lastNumber = BigDecimal.ZERO;
+			}
+		}
+		
+		calculatorDisplay = lastNumber.toEngineeringString();
+		displayArea.setText(calculatorDisplay);
+		
+		equals = true;
+	}
+	
+	/**
+	 * This method will attempt to calculate the reciprocal of the currently displayed number.
+	 * If the result ends up in a non-terminating decimal, it will round it to 10 decimal places.
+	 * 
+	 * @throws NumberFormatException
+	 * @throws ArithmeticException
+	 */
+	private static void calculateReciprocal() throws NumberFormatException, ArithmeticException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				lastNumber = new BigDecimal(calculatorDisplay);
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				calculatorDisplay = "0";
+				displayArea.setText(calculatorDisplay);
+				
+				firstEntry = true;
+				
+				return;
+			}
+		}
+		
+		if (!lastNumber.equals(BigDecimal.ZERO)) {
+			try {
+				lastNumber = BigDecimal.ONE.divide(lastNumber);
+			} catch (ArithmeticException exception) {
+				System.out.println("Non-terminating decimal answer. Rounding to 10 decimal places!");
+			
+				lastNumber = BigDecimal.ONE.divide(lastNumber, 10, RoundingMode.CEILING);
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+			
+				lastNumber = BigDecimal.ZERO;
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Error: Divide by zero!", "Error!", JOptionPane.ERROR_MESSAGE);
+			clear();
+		}
+		
+		calculatorDisplay = lastNumber.toEngineeringString();
+		displayArea.setText(calculatorDisplay);
+		
+		equals = true;
+	}
+	
+	/**
+	 * This method will calculate the percentage value of the currently displayed number.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private static void calculatePercentage() throws NumberFormatException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				lastNumber = new BigDecimal(calculatorDisplay);
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				calculatorDisplay = "0";
+				displayArea.setText(calculatorDisplay);
+				
+				firstEntry = true;
+				
+				return;
+			}
+		}
+		
+		try {
+			lastNumber = lastNumber.divide(BigDecimal.valueOf(100));
+		} catch (NumberFormatException exception) {
+			JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
+					"Error!", JOptionPane.ERROR_MESSAGE);
+			clear();
+			
+			lastNumber = BigDecimal.ZERO;
+		}
+		
+		calculatorDisplay = lastNumber.toEngineeringString();
+		displayArea.setText(calculatorDisplay);
+		
+		equals = true;
+	}
+	
+	/**
+	 * This method will store the current number in the display to the memory.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private static void memoryStore() throws NumberFormatException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				memory = new BigDecimal(calculatorDisplay);
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				calculatorDisplay = "0";
+				displayArea.setText(calculatorDisplay);
+				
+				firstEntry = true;
+				
+				return;
+			}
+		}
+		
+		calculatorDisplay = "0";
+		displayArea.setText(calculatorDisplay);
+		
+		firstEntry = true;
+	}
+	
+	/**
+	 * This method will add the current number into the number stored in memory.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private static void memoryAdd() throws NumberFormatException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			
+			clearEntry();
+			
+			return;
+		}
+		else {
+			try {
+				memory = memory.add(new BigDecimal(calculatorDisplay));
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				memory = BigDecimal.ZERO;
+			}
+		}
+		
+		calculatorDisplay = "0";
+		displayArea.setText(calculatorDisplay);
+		
+		firstEntry = true;
+	}
+	
+	/**
+	 * This method will subtract the current number from the number stored in memory.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private static void memoryMinus() throws NumberFormatException {
+		calculatorDisplay = displayArea.getText();
+		
+		if (firstEntry) {
+			JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
+												"Error!", JOptionPane.ERROR_MESSAGE);
+			
+			clearEntry();
+			
+			return;
+		}
+		else
+		{
+			try {
+				memory = memory.subtract(new BigDecimal(calculatorDisplay));
+			} catch (NumberFormatException exception) {
+				JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
+						"Error!", JOptionPane.ERROR_MESSAGE);
+				
+				memory = BigDecimal.ZERO;
+			}
+		}
+		
+		calculatorDisplay = "0";
+		displayArea.setText(calculatorDisplay);
+		
+		firstEntry = true;
+	}
+	
+	/**
 	 * This method will process the last operator if there is one pending, and then queue up the operator
 	 * that is passed to this method. It will only process the last operator if the lastOperator variable
 	 * equals one or six (corresponding to no operation or a repeated equals operation).
@@ -399,7 +695,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * @param operator byte number corresponding to the desired operation.
 	 * @throws NumberFormatException
 	 */
-	private void calculateOperator(byte operator) throws NumberFormatException {
+	private static void calculateOperator(byte operator) throws NumberFormatException {
 		calculatorDisplay = displayArea.getText();
 		BigDecimal currentNumber;
 		
@@ -453,7 +749,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * @throws NumberFormatException
 	 * @throws ArithmeticException
 	 */
-	private BigDecimal calculateLastOperator() throws NumberFormatException, ArithmeticException {
+	private static BigDecimal calculateLastOperator() throws NumberFormatException, ArithmeticException {
 		calculatorDisplay = displayArea.getText();
 		BigDecimal currentNumber;
 		
@@ -694,173 +990,18 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 		/**
 		 * ================= Positive/Negative Function =================
 		 */
-		if (e.getSource() == plusMinusButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					calculatorDisplay = new BigDecimal(calculatorDisplay).multiply(BigDecimal.valueOf(-1)).toEngineeringString();
-				} catch (NumberFormatException exception) {
-										System.out.println("Number format was invalid, INFINITE or NaN!");
-					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					clearEntry();
-					
-					return;
-				}
-			}
-			
-			displayArea.setText(calculatorDisplay);
-		}
+		if (e.getSource() == plusMinusButton)
+			calculateNegation();
 		
 		/**
 		 * ================= Special Functions =================
 		 */
-		if (e.getSource() == sqrtButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					calculatorDisplay = "0";
-					displayArea.setText(calculatorDisplay);
-					
-					firstEntry = true;
-					
-					return;
-				}
-			}
-			
-			if (lastNumber.compareTo(BigDecimal.ZERO) < 0)
-				JOptionPane.showMessageDialog(null, "Error: Cannot take the square root of a negative number", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-			else {
-				try {
-					lastNumber = BigDecimal.valueOf(Math.sqrt(lastNumber.doubleValue()));
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					clear();
-					
-					lastNumber = BigDecimal.ZERO;
-				}
-			}
-			
-			calculatorDisplay = lastNumber.toEngineeringString();
-			displayArea.setText(calculatorDisplay);
-			
-			equals = true;
-		}
-		if (e.getSource() == onexButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					calculatorDisplay = "0";
-					displayArea.setText(calculatorDisplay);
-					
-					firstEntry = true;
-					
-					return;
-				}
-			}
-			
-			if (!lastNumber.equals(BigDecimal.ZERO)) {
-				try {
-					lastNumber = BigDecimal.ONE.divide(lastNumber);
-				} catch (ArithmeticException exception) {
-					System.out.println("Non-terminating decimal answer. Rounding to 10 decimal places!");
-				
-					lastNumber = BigDecimal.ONE.divide(lastNumber, 10, RoundingMode.CEILING);
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-				
-					lastNumber = BigDecimal.ZERO;
-				}
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "Error: Divide by zero!", "Error!", JOptionPane.ERROR_MESSAGE);
-				clear();
-			}
-			
-			calculatorDisplay = lastNumber.toEngineeringString();
-			displayArea.setText(calculatorDisplay);
-			
-			equals = true;
-		}
-		if (e.getSource() == percentButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					lastNumber = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					calculatorDisplay = "0";
-					displayArea.setText(calculatorDisplay);
-					
-					firstEntry = true;
-					
-					return;
-				}
-			}
-			
-			try {
-				lastNumber = lastNumber.divide(BigDecimal.valueOf(100));
-			} catch (NumberFormatException exception) {
-				JOptionPane.showMessageDialog(null, "Error: Infinite/NaN result!", 
-						"Error!", JOptionPane.ERROR_MESSAGE);
-				clear();
-				
-				lastNumber = BigDecimal.ZERO;
-			}
-			
-			calculatorDisplay = lastNumber.toEngineeringString();
-			displayArea.setText(calculatorDisplay);
-			
-			equals = true;
-		}
+		if (e.getSource() == sqrtButton)
+			calculateSquareRoot();
+		if (e.getSource() == onexButton)
+			calculateReciprocal();
+		if (e.getSource() == percentButton)
+			calculatePercentage();
 		
 		/**
 		 * ================= Operational Functions =================
@@ -894,93 +1035,12 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 		 */
 		if (e.getSource() == mcButton)
 			memory = BigDecimal.ZERO;
-		if (e.getSource() == msButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					memory = new BigDecimal(calculatorDisplay);
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Malformed expression!!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					calculatorDisplay = "0";
-					displayArea.setText(calculatorDisplay);
-					
-					firstEntry = true;
-					
-					return;
-				}
-			}
-			
-			calculatorDisplay = "0";
-			displayArea.setText(calculatorDisplay);
-			
-			firstEntry = true;
-		}
-		if (e.getSource() == mPlusButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				
-				clearEntry();
-				
-				return;
-			}
-			else {
-				try {
-					memory = memory.add(new BigDecimal(calculatorDisplay));
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					memory = BigDecimal.ZERO;
-				}
-			}
-			
-			calculatorDisplay = "0";
-			displayArea.setText(calculatorDisplay);
-			
-			firstEntry = true;
-		}
-		if (e.getSource() == mMinusButton) {
-			calculatorDisplay = displayArea.getText();
-			
-			if (firstEntry) {
-				JOptionPane.showMessageDialog(null, "Error: You must input a number before an operator!", 
-													"Error!", JOptionPane.ERROR_MESSAGE);
-				
-				clearEntry();
-				
-				return;
-			}
-			else
-			{
-				try {
-					memory = memory.subtract(new BigDecimal(calculatorDisplay));
-				} catch (NumberFormatException exception) {
-					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
-							"Error!", JOptionPane.ERROR_MESSAGE);
-					
-					memory = BigDecimal.ZERO;
-				}
-			}
-			
-			calculatorDisplay = "0";
-			displayArea.setText(calculatorDisplay);
-			
-			firstEntry = true;
-		}
+		if (e.getSource() == msButton)
+			memoryStore();
+		if (e.getSource() == mPlusButton)
+			memoryAdd();
+		if (e.getSource() == mMinusButton)
+			memoryMinus();
 		if (e.getSource() == mrButton) {
 			calculatorDisplay = memory.toString();
 			displayArea.setText(calculatorDisplay);
@@ -1013,6 +1073,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 			clearEntry();
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		SimpleCalcFrame myCalc = new SimpleCalcFrame("bCalc");
 	}
