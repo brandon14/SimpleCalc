@@ -56,6 +56,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 	private static Font sansSerifLarge = new Font("Sans Serif", Font.PLAIN, 18);
 	
 	private static JTextField displayArea = new JTextField();
+	private static JTextField subDisplayArea = new JTextField();
 	private static JScrollBar displayScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
 	private static JPanel displayPanel = new JPanel();
 	private static String calculatorDisplay;
@@ -144,12 +145,17 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		BoundedRangeModel resultBRM = displayArea.getHorizontalVisibility();
 		displayScrollBar.setModel(resultBRM);
 		displayScrollBar.setVisible(false);
+		displayPanel.add(subDisplayArea);
 		displayPanel.add(displayArea);
 		displayPanel.add(displayScrollBar);
 		displayArea.setAutoscrolls(true);
+		subDisplayArea.setAutoscrolls(true);
 		displayArea.setEditable(false);
+		subDisplayArea.setEditable(false);
 		displayArea.setFont(sansSerifLarge);
+		subDisplayArea.setFont(sansSerifRegular);
 		displayArea.setHorizontalAlignment(JTextField.RIGHT);
+		subDisplayArea.setHorizontalAlignment(JTextField.RIGHT);
 		displayArea.getDocument().addDocumentListener(this);
 		
 		mcButton = new JButton("MC");
@@ -326,6 +332,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		result = BigDecimal.ZERO;
 		memory = BigDecimal.ZERO;
 		
+		subDisplayArea.setText("");
 		displayArea.setText(calculatorDisplay);
 		calculatorWindow.setVisible(true);
 	}
@@ -358,6 +365,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		
 		calculatorDisplay = "0";
 		displayArea.setText(calculatorDisplay);
+		subDisplayArea.setText("");
 	}
 	
 	/**
@@ -725,6 +733,24 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 			}
 		}
 		
+		switch (operator) {
+			case 1:
+				subDisplayArea.setText(currentNumber.toEngineeringString() + " +");
+				break;
+			case 2:
+				subDisplayArea.setText(currentNumber.toEngineeringString() + " -");
+				break;
+			case 3:
+				subDisplayArea.setText(currentNumber.toEngineeringString() + " *");
+				break;
+			case 4:
+				subDisplayArea.setText(currentNumber.toEngineeringString() + " /");
+				break;
+			case 5:
+				subDisplayArea.setText(currentNumber.toEngineeringString() + " ^");
+				break;
+		}
+		
 		/**
 		 * If the last operator doesn't equal zero or six then we have a pending operation
 		 * in queue, so we set the result equal to the the BigDecimal returned from the
@@ -742,6 +768,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		
 		lastOperator = operator;
 		calculatorDisplay = "";
+		displayArea.setText(calculatorDisplay);
 	}
 	
 	/**
@@ -1031,6 +1058,8 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 			
 			equals = true;
 			lastOperator = 6;
+			
+			subDisplayArea.setText("");
 		}
 		
 		/**
