@@ -24,7 +24,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.rmi.AccessException;
 
 import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
