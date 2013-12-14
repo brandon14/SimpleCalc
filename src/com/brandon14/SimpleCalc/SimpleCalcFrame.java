@@ -47,38 +47,17 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	
 	private JFrame calculatorWindow;
 	
-	/**
-	 * We declare the height and width of the window as
-	 * final constant integers for use in the constructor.
-	 */
 	private final int HEIGHT_OF_WINDOW = 325;
 	private final int WIDTH_OF_WINDOW = 300;
 	
-	/**
-	 * We define the various fonts that will be used by the buttons
-	 * and the textfield.
-	 */
 	private Font sansSerifRegular = new Font("Sans Serif", Font.BOLD, 16);
 	private Font sansSerifLarge = new Font("Sans Serif", Font.PLAIN, 18);
 	
-	/**
-	 * Create a JTextField, JScrollBar JPanel and a String that will all
-	 * be used to create the display area of the calculator. We add the textfield
-	 * and scroll bar to the JPanel, and the String will be what is display in the
-	 * textfield.
-	 */
 	private JTextField displayArea = new JTextField();
 	private JScrollBar displayScrollBar = new JScrollBar(JScrollBar.HORIZONTAL);
 	private JPanel displayPanel = new JPanel();
 	private String calculatorDisplay;
 	
-	/**
-	 * Create JPanel's for the row's of buttons. In order to get the double height equals
-	 * button and maintain the other buttons normal heights, we must split the third row up
-	 * into 5 separate JPanel's. We also use two rows of buttons in each row JPanel. We use
-	 * GridLayouts on each panel to determine the number of rows of buttons and the number of
-	 * buttons in each row for each JPanel.
-	 */
 	private JPanel rowOneButtons = new JPanel(new GridLayout(2,5));
 	private JPanel rowTwoButtons = new JPanel(new GridLayout(2,5));
 	private JPanel rowThreeButtons = new JPanel(new GridLayout(1,5));
@@ -88,9 +67,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private JPanel rowThreeFourButtons = new JPanel(new GridLayout(2,1));
 	private JPanel rowThreeFiveButtons = new JPanel(new GridLayout(1,1));
 	
-	/**
-	 * JButton's that will go on rowOne JPanel.
-	 */
 	private JButton mcButton;
 	private JButton mrButton;
 	private JButton msButton;
@@ -102,9 +78,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private JButton plusMinusButton;
 	private JButton sqrtButton;
 	
-	/**
-	 * JButton's that will go on rowTwo JPanel.
-	 */
 	private JButton sevenButton;
 	private JButton eightButton;
 	private JButton nineButton;
@@ -116,10 +89,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private JButton multiplyButton;
 	private JButton onexButton;
 	
-	/**
-	 * JButton's that will go on rowThree individual
-	 * JPanel's
-	 */
 	private JButton oneButton;
 	private JButton twoButton;
 	private JButton threeButton;
@@ -130,14 +99,11 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	private JButton plusButton;
 	private JButton powerButton;
 	
-	/**
-	 * We need some additional variables to handle the calculations and
-	 * set flags to help maintain the display and so on.
-	 */
 	private boolean firstEntry;
 	private byte repeatedLastOp;
 	private BigDecimal repeatedLastNum;
 	private boolean equals;
+	
 	/**
 	 * 0 - no operator
 	 * 1 - addition
