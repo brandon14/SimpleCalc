@@ -157,6 +157,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		displayArea.setHorizontalAlignment(JTextField.RIGHT);
 		subDisplayArea.setHorizontalAlignment(JTextField.RIGHT);
 		displayArea.getDocument().addDocumentListener(this);
+		subDisplayArea.getDocument().addDocumentListener(this);
 		
 		mcButton = new JButton("MC");
 		mrButton = new JButton("MR");
@@ -1107,23 +1108,23 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 	
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() > 25)
+		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
 			displayScrollBar.setVisible(true);
 		else
-			displayScrollBar.setVisible(false);
+			displayScrollBar.setVisible(false);	
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() < 25)
-			displayScrollBar.setVisible(false);
-		else
+		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
 			displayScrollBar.setVisible(true);
+		else
+			displayScrollBar.setVisible(false);	
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() > 25)
+		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
 			displayScrollBar.setVisible(true);
 		else
 			displayScrollBar.setVisible(false);		
