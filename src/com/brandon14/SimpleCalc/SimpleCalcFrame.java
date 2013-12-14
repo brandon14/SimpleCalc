@@ -703,7 +703,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 			}
 			else {
 				try {
-					calculatorDisplay = new BigDecimal(calculatorDisplay).multiply(BigDecimal.valueOf(-1)).toString();
+					calculatorDisplay = new BigDecimal(calculatorDisplay).multiply(BigDecimal.valueOf(-1)).toEngineeringString();
 				} catch (NumberFormatException exception) {
 										System.out.println("Number format was invalid, INFINITE or NaN!");
 					JOptionPane.showMessageDialog(null, "Error: Invalid number format, or Infinite/NaN result!", 
@@ -762,7 +762,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 				}
 			}
 			
-			calculatorDisplay = lastNumber.toString();
+			calculatorDisplay = lastNumber.toEngineeringString();
 			displayArea.setText(calculatorDisplay);
 			
 			equals = true;
@@ -812,7 +812,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 				clear();
 			}
 			
-			calculatorDisplay = lastNumber.toString();
+			calculatorDisplay = lastNumber.toEngineeringString();
 			displayArea.setText(calculatorDisplay);
 			
 			equals = true;
@@ -853,7 +853,7 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 				lastNumber = BigDecimal.ZERO;
 			}
 			
-			calculatorDisplay = lastNumber.toString();
+			calculatorDisplay = lastNumber.toEngineeringString();
 			displayArea.setText(calculatorDisplay);
 			
 			equals = true;
