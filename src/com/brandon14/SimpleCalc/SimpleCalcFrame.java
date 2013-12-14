@@ -450,8 +450,9 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 	 * 
 	 * @return the BigDecimal value of the operation performed.
 	 * @throws NumberFormatException
+	 * @throws ArithmeticException
 	 */
-	private BigDecimal calculateLastOperator() throws NumberFormatException {
+	private BigDecimal calculateLastOperator() throws NumberFormatException, ArithmeticException {
 		calculatorDisplay = displayArea.getText();
 		BigDecimal currentNumber;
 		
