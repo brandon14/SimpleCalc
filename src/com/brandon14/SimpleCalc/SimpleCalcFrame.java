@@ -61,6 +61,9 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 	private static JPanel displayPanel = new JPanel();
 	private static String calculatorDisplay;
 	
+	private static BoundedRangeModel resultBRM = displayArea.getHorizontalVisibility();
+	private static BoundedRangeModel subResultBRM = subDisplayArea.getHorizontalVisibility();
+	
 	private static JPanel rowOneButtons = new JPanel(new GridLayout(2,5));
 	private static JPanel rowTwoButtons = new JPanel(new GridLayout(2,5));
 	private static JPanel rowThreeButtons = new JPanel(new GridLayout(1,5));
@@ -142,7 +145,6 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 		setDesign();
 		
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
-		BoundedRangeModel resultBRM = displayArea.getHorizontalVisibility();
 		displayScrollBar.setModel(resultBRM);
 		displayScrollBar.setVisible(false);
 		displayPanel.add(subDisplayArea);
@@ -1108,26 +1110,50 @@ public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentL
 	
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
+		if (displayArea.getText().length() > 25) {
+			displayScrollBar.setModel(resultBRM);
 			displayScrollBar.setVisible(true);
-		else
-			displayScrollBar.setVisible(false);	
+		} 
+		else if (subDisplayArea.getText().length() > 27) {
+			displayScrollBar.setModel(subResultBRM);
+			displayScrollBar.setVisible(true);
+		} 
+		else {
+			displayScrollBar.setVisible(false);
+			displayScrollBar.setModel(resultBRM);
+		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
+		if (displayArea.getText().length() > 25) {
+			displayScrollBar.setModel(resultBRM);
 			displayScrollBar.setVisible(true);
-		else
-			displayScrollBar.setVisible(false);	
+		} 
+		else if (subDisplayArea.getText().length() > 27) {
+			displayScrollBar.setModel(subResultBRM);
+			displayScrollBar.setVisible(true);
+		} 
+		else {
+			displayScrollBar.setVisible(false);
+			displayScrollBar.setModel(resultBRM);
+		}	
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		if (displayArea.getText().length() > 25 || subDisplayArea.getText().length() > 25)
+		if (displayArea.getText().length() > 25) {
+			displayScrollBar.setModel(resultBRM);
 			displayScrollBar.setVisible(true);
-		else
-			displayScrollBar.setVisible(false);		
+		} 
+		else if (subDisplayArea.getText().length() > 27) {
+			displayScrollBar.setModel(subResultBRM);
+			displayScrollBar.setVisible(true);
+		} 
+		else {
+			displayScrollBar.setVisible(false);
+			displayScrollBar.setModel(resultBRM);
+		}	
 	}
 	
 	@SuppressWarnings("unused")
