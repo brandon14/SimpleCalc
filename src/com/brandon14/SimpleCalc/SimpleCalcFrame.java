@@ -34,6 +34,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  * This class contains all of the layouts for the calculator as well as the button Action
@@ -42,7 +44,7 @@ import javax.swing.UIManager;
  * @author Brandon Clothier
  *
  */
-public class SimpleCalcFrame extends JFrame implements ActionListener {
+public class SimpleCalcFrame extends JFrame implements ActionListener, DocumentListener {
 	private static final long serialVersionUID = 610599451754598404L;
 	
 	private static JFrame calculatorWindow;
@@ -141,12 +143,14 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 		displayPanel.setLayout(new BoxLayout(displayPanel, BoxLayout.Y_AXIS));
 		BoundedRangeModel resultBRM = displayArea.getHorizontalVisibility();
 		displayScrollBar.setModel(resultBRM);
+		displayScrollBar.setVisible(false);
 		displayPanel.add(displayArea);
 		displayPanel.add(displayScrollBar);
 		displayArea.setAutoscrolls(true);
 		displayArea.setEditable(false);
 		displayArea.setFont(sansSerifLarge);
 		displayArea.setHorizontalAlignment(JTextField.RIGHT);
+		displayArea.getDocument().addDocumentListener(this);
 		
 		mcButton = new JButton("MC");
 		mrButton = new JButton("MR");
@@ -1070,6 +1074,30 @@ public class SimpleCalcFrame extends JFrame implements ActionListener {
 			clear();
 		if(e.getSource() == ceButton)
 			clearEntry();
+	}
+	
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+		if (displayArea.getText().length() > 25)
+			displayScrollBar.setVisible(true);
+		else
+			displayScrollBar.setVisible(false);
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		if (displayArea.getText().length() < 25)
+			displayScrollBar.setVisible(false);
+		else
+			displayScrollBar.setVisible(true);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		if (displayArea.getText().length() > 25)
+			displayScrollBar.setVisible(true);
+		else
+			displayScrollBar.setVisible(false);		
 	}
 	
 	@SuppressWarnings("unused")
